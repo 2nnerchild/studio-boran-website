@@ -620,9 +620,31 @@
     word-break:keep-all;
   }
   .jr-grainy{
-    color:#fff;font-weight:400;font-style:normal;
-    filter:url(#grain-fx) contrast(1.18);
+    color:#3A78C2;font-weight:500;font-style:normal;
+    filter:url(#grain-fx) contrast(1.25) brightness(1.1);
     display:inline;
+    text-shadow:0 0 24px rgba(58,120,194,.28);
+  }
+  .jr-emph{
+    color:#E8936A;font-weight:400;font-style:normal;
+    text-shadow:0 0 24px rgba(193,81,31,.25);
+  }
+  .jr-scroll-hint{
+    position:absolute;bottom:40px;left:50%;
+    transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    font-family:'DM Sans','Helvetica Neue',sans-serif;
+    font-size:10px;letter-spacing:3px;text-transform:uppercase;
+    color:rgba(255,255,255,.5);
+    opacity:var(--hint-op,0);
+    transition:opacity .4s ease;
+    z-index:4;pointer-events:none;
+  }
+  .jr-hint-line{display:block;width:1px;height:32px;background:rgba(232,147,106,.5)}
+  .jr-hint-arrow{font-size:14px;color:var(--orange-light);animation:jr-bounce 1.8s ease-in-out infinite}
+  @keyframes jr-bounce{
+    0%,100%{transform:translateY(0);opacity:.6}
+    50%{transform:translateY(6px);opacity:1}
   }
   .jr-divider{width:1px;height:48px;background:rgba(193,81,31,.4);margin:36px auto}
   .jr-second{
@@ -1555,11 +1577,16 @@
       <p class="jr-main">
         서울의 잘 갖춰진 스튜디오엔 없는 것 —
         <span class="jr-grainy">불편함.</span>
-        어쩌면 그 불편함이 진짜 음악을 만들어 낼지도 모른다.
+        어쩌면 그 불편함이 <span class="jr-emph">진짜 음악</span>을 만들어 낼지도 모른다.
       </p>
       <div class="jr-divider"></div>
       <p class="jr-second">그리고 그 곳에서 3,000km.<br>그 거리만큼 업계의 소음이 줄어든다.</p>
       <p class="jr-last">들려야 할 것만 들린다.</p>
+    </div>
+    <div class="jr-scroll-hint" id="jr-hint">
+      <span class="jr-hint-line"></span>
+      <span class="jr-hint-text">아래로 스크롤하여 연락처 보기</span>
+      <span class="jr-hint-arrow">↓</span>
     </div>
   </div>
 </section>
@@ -1705,6 +1732,7 @@
   const wordsEl    = document.getElementById('jr-words');
   const textEl     = section.querySelector('.jr-text');
   const lastEl     = section.querySelector('.jr-last');
+  const hintEl     = document.getElementById('jr-hint');
   if (!kmEl || !wordsEl) return;
 
   /* Noise words */
@@ -1782,6 +1810,11 @@
     /* last line — letter spacing expand */
     lastEl.style.setProperty('--l-ls', map(prog, 0.91, 1.0, 0.04, 0.38) + 'em');
     lastEl.style.setProperty('--l-op', map(prog, 0.91, 0.99, 0, 1));
+
+    /* scroll hint — fades in near the end */
+    if (hintEl){
+      hintEl.style.setProperty('--hint-op', map(prog, 0.95, 1.0, 0, 1));
+    }
   }
 
   function onScroll(){
