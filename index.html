@@ -17,9 +17,9 @@
     --blue-mid:#2C5F9E;
     --walnut:#5C3D1E;
     --walnut-light:#8A6040;
-    --cream:#F1EADB;
-    --cream-surf:#E7DFCC;
-    --cream-muted:#CFC6AE;
+    --cream:#EBE0C9;
+    --cream-surf:#DFD2B5;
+    --cream-muted:#C6BB9F;
     --font-display:'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
     --font-ui:'DM Sans','Noto Sans KR','Helvetica Neue', Arial, sans-serif;
     --shadow-sig:4px 4px 0 var(--orange);
@@ -620,28 +620,28 @@
     word-break:keep-all;
   }
   .jr-grainy{
-    color:#3A78C2;font-weight:500;font-style:normal;
-    filter:url(#grain-fx) contrast(1.25) brightness(1.1);
-    display:inline;
-    text-shadow:0 0 24px rgba(58,120,194,.28);
+    color:#5A9BD8;font-weight:400;font-style:normal;
+    display:inline;letter-spacing:.005em;
+    -webkit-font-smoothing:antialiased;
   }
   .jr-emph{
     color:#E8936A;font-weight:400;font-style:normal;
-    text-shadow:0 0 24px rgba(193,81,31,.25);
+    display:inline;letter-spacing:.005em;
+    -webkit-font-smoothing:antialiased;
   }
   .jr-scroll-hint{
-    position:absolute;bottom:40px;left:50%;
+    position:absolute;top:48px;left:50%;
     transform:translateX(-50%);
     display:flex;flex-direction:column;align-items:center;gap:10px;
     font-family:'DM Sans','Helvetica Neue',sans-serif;
-    font-size:10px;letter-spacing:3px;text-transform:uppercase;
-    color:rgba(255,255,255,.5);
-    opacity:var(--hint-op,0);
+    font-size:10px;letter-spacing:3.5px;text-transform:uppercase;
+    color:rgba(255,255,255,.55);
+    opacity:var(--hint-op,1);
     transition:opacity .4s ease;
     z-index:4;pointer-events:none;
   }
-  .jr-hint-line{display:block;width:1px;height:32px;background:rgba(232,147,106,.5)}
-  .jr-hint-arrow{font-size:14px;color:var(--orange-light);animation:jr-bounce 1.8s ease-in-out infinite}
+  .jr-hint-arrow{font-size:14px;color:var(--orange-light);animation:jr-bounce 1.8s ease-in-out infinite;margin-top:4px}
+  .jr-hint-line{display:block;width:1px;height:28px;background:rgba(232,147,106,.45);margin-top:4px}
   @keyframes jr-bounce{
     0%,100%{transform:translateY(0);opacity:.6}
     50%{transform:translateY(6px);opacity:1}
@@ -1584,9 +1584,9 @@
       <p class="jr-last">들려야 할 것만 들린다.</p>
     </div>
     <div class="jr-scroll-hint" id="jr-hint">
-      <span class="jr-hint-line"></span>
-      <span class="jr-hint-text">아래로 스크롤하여 연락처 보기</span>
+      <span class="jr-hint-text">아래로 스크롤하여 여정을 시작하세요</span>
       <span class="jr-hint-arrow">↓</span>
+      <span class="jr-hint-line"></span>
     </div>
   </div>
 </section>
@@ -1811,9 +1811,9 @@
     lastEl.style.setProperty('--l-ls', map(prog, 0.91, 1.0, 0.04, 0.38) + 'em');
     lastEl.style.setProperty('--l-op', map(prog, 0.91, 0.99, 0, 1));
 
-    /* scroll hint — fades in near the end */
+    /* scroll hint — visible at start, fades out as user scrolls */
     if (hintEl){
-      hintEl.style.setProperty('--hint-op', map(prog, 0.95, 1.0, 0, 1));
+      hintEl.style.setProperty('--hint-op', map(prog, 0.02, 0.12, 1, 0));
     }
   }
 
