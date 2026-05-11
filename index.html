@@ -7,14 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
-<script type="importmap">
-{"imports":{
-  "react":"https://esm.sh/react@18.3.1",
-  "react-dom/client":"https://esm.sh/react-dom@18.3.1/client",
-  "framer-motion":"https://esm.sh/framer-motion@11.18.2",
-  "htm":"https://esm.sh/htm@3.1.1"
-}}
-</script>
 <style>
   :root{
     --orange:#C1511F;
@@ -210,7 +202,9 @@
   .meaning .head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px}
   .meaning .num{font-family:var(--font-display);font-style:italic;font-size:48px;color:var(--orange);line-height:1}
   .meaning .small{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--walnut-light)}
-  .meaning .thai{font-family:var(--font-display);font-size:34px;font-weight:300;color:var(--blue-brand);margin-bottom:14px}
+  .meaning .thai{font-family:var(--font-display);font-size:34px;font-weight:300;color:var(--blue-brand);margin-bottom:6px}
+  .meaning .thai-sub{font-family:var(--font-ui);font-size:11px;letter-spacing:1.5px;color:var(--walnut-light);margin-bottom:14px;line-height:1.6}
+  .meaning .thai-sub .ro{color:var(--orange);font-weight:500;text-transform:uppercase;letter-spacing:2px}
   .meaning .gloss{font-family:var(--font-display);font-style:italic;font-size:18px;color:var(--walnut);margin-bottom:18px;display:inline-block;border-bottom:1px solid var(--orange);padding-bottom:6px}
   .meaning p{font-size:14px;line-height:1.85;color:var(--walnut)}
 
@@ -275,6 +269,37 @@
   }
   .founder-copy p{margin-top:24px;font-size:15px;line-height:1.95;color:rgba(247,244,238,.78)}
   .founder-copy .signoff{margin-top:32px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange-light)}
+
+  /* Founder story collapsible */
+  .story-reveal{
+    display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .8s cubic-bezier(.25,1,.3,1), opacity .6s ease, margin-top .6s ease;
+    opacity:0;margin-top:0;
+  }
+  .story-reveal > .story-inner{overflow:hidden;min-height:0}
+  .story-reveal.open{grid-template-rows:1fr;opacity:1;margin-top:8px}
+  .story-toggle{
+    margin-top:28px;display:inline-flex;align-items:center;gap:12px;
+    padding:13px 24px;border:1px solid rgba(247,244,238,.18);
+    background:rgba(247,244,238,.04);color:var(--cream);
+    font-family:var(--font-ui);font-size:11px;font-weight:500;
+    letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;
+    border-radius:100px;
+    transition:background .25s,border-color .25s,letter-spacing .25s;
+  }
+  .story-toggle:hover{background:rgba(193,81,31,.12);border-color:var(--orange-light);letter-spacing:3px}
+  .story-toggle .chev{
+    display:inline-block;width:8px;height:8px;
+    border-right:1.5px solid var(--orange-light);
+    border-bottom:1.5px solid var(--orange-light);
+    transform:rotate(45deg);margin-top:-3px;
+    transition:transform .4s cubic-bezier(.25,1,.3,1);
+  }
+  .story-toggle.open .chev{transform:rotate(-135deg);margin-top:3px}
+  .story-hint{
+    margin-top:14px;font-size:11px;letter-spacing:1.5px;
+    color:rgba(247,244,238,.4);font-style:italic;
+  }
 
   /* Timeline */
   .timeline{margin-top:96px;border-top:1px solid rgba(247,244,238,.14);padding-top:48px}
@@ -529,6 +554,211 @@
     .container{padding:0 28px}
     .sec-pad{padding:80px 0}
   }
+
+  /* ── Journey Animation (vanilla, scroll-driven) ── */
+  #journey{
+    position:relative;height:450vh;background:#080808;
+    scroll-margin-top:72px;color:#fff;
+  }
+  .jr-sticky{
+    position:sticky;top:0;height:100vh;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:#080808;
+  }
+  .jr-grid{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+    background-size:56px 56px;
+    opacity:var(--g-op,.6);
+    transition:opacity .15s linear;
+  }
+  .jr-words{position:absolute;inset:0;pointer-events:none}
+  .jr-words span{
+    position:absolute;
+    font-family:'DM Sans','Helvetica Neue',sans-serif;
+    font-size:10px;letter-spacing:3.5px;
+    text-transform:uppercase;color:#4a4a4a;font-weight:500;
+    white-space:nowrap;will-change:transform,opacity;
+    transition:transform .15s linear,opacity .15s linear;
+  }
+  .jr-counter{
+    position:absolute;text-align:center;z-index:2;user-select:none;
+    opacity:var(--c-op,1);transition:opacity .2s linear;
+  }
+  .jr-counter .jr-km{
+    display:block;
+    font-family:'Cormorant Garamond','Noto Serif KR',serif;
+    font-size:clamp(64px,11vw,148px);font-weight:300;
+    line-height:1;letter-spacing:-.02em;
+    color:var(--c-color,#fff);
+    transition:color .3s ease;
+  }
+  .jr-counter .jr-label{
+    display:block;margin-top:16px;
+    font-family:'DM Sans',sans-serif;
+    font-size:10px;letter-spacing:4px;
+    text-transform:uppercase;color:#383838;
+  }
+  .jr-text{
+    position:absolute;inset:0;z-index:3;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    padding:0 clamp(28px,9vw,180px);text-align:center;
+    opacity:var(--t-op,0);
+    filter:blur(var(--t-blur,28px));
+    transition:opacity .2s linear,filter .2s linear;
+    pointer-events:none;
+  }
+  .jr-main{
+    font-family:'Cormorant Garamond','Noto Serif KR',serif;
+    font-size:clamp(17px,1.9vw,27px);
+    font-weight:300;font-style:italic;
+    color:rgba(255,255,255,.78);
+    line-height:1.95;letter-spacing:.01em;margin:0;
+    word-break:keep-all;
+  }
+  .jr-grainy{
+    color:#fff;font-weight:400;font-style:normal;
+    filter:url(#grain-fx) contrast(1.18);
+    display:inline;
+  }
+  .jr-divider{width:1px;height:48px;background:rgba(193,81,31,.4);margin:36px auto}
+  .jr-second{
+    font-family:'Cormorant Garamond','Noto Serif KR',serif;
+    font-size:clamp(14px,1.55vw,21px);
+    font-weight:300;font-style:italic;
+    color:rgba(255,255,255,.48);
+    line-height:2.1;letter-spacing:.01em;margin:0;
+    word-break:keep-all;
+  }
+  .jr-last{
+    margin-top:28px;
+    font-family:'Cormorant Garamond','Noto Serif KR',serif;
+    font-size:clamp(15px,1.75vw,24px);font-weight:300;
+    color:rgba(255,255,255,.92);line-height:2.5;
+    letter-spacing:var(--l-ls,.04em);
+    opacity:var(--l-op,0);
+    transition:letter-spacing .2s linear,opacity .2s linear;
+    word-break:keep-all;
+  }
+  @media (max-width:760px){
+    #journey{height:380vh}
+    .jr-text{padding:0 28px}
+    .jr-counter .jr-km{font-size:80px}
+    .jr-main{font-size:18px;line-height:1.85}
+    .jr-second{font-size:14px;line-height:1.9}
+    .jr-last{font-size:16px}
+    .jr-divider{height:36px;margin:24px auto}
+    .jr-words span{font-size:9px;letter-spacing:2px}
+  }
+
+  /* ── Tablet & smaller ── */
+  @media (max-width: 760px){
+    nav.top .inner{padding:14px 20px;gap:16px}
+    .brandmark .wordmark{font-size:12px}
+    .nav-cta{padding:8px 14px;font-size:10px}
+    .container{padding:0 20px}
+    .sec-pad{padding:64px 0}
+
+    /* Hero */
+    .hero-left{padding:64px 28px 56px 28px}
+    .hero-left h1{font-size:clamp(36px,9vw,52px) !important}
+    .hero-right{min-height:380px;padding:32px}
+    .hero-foot{grid-template-columns:1fr 1fr;gap:18px}
+
+    /* Section heads */
+    .sec-head .right h2{font-size:clamp(28px,7vw,36px)}
+    .sec-head .left .num{font-size:44px}
+
+    /* Brand */
+    .meaning{padding:32px 24px}
+    .meaning .num{font-size:38px}
+    .meaning .thai{font-size:26px}
+    .meaning .h{margin-top:18px}
+    .boran-card{padding:32px 28px}
+    .boran-card .word{font-size:64px}
+
+    /* Founder */
+    .founder-grid{gap:36px}
+    .founder-portrait{aspect-ratio:1/1}
+    .founder-copy h3{font-size:clamp(26px,6vw,34px)}
+    .founder-hero-quote{font-size:clamp(24px,5.5vw,30px)}
+    .founder-copy .pull{padding:20px 22px;font-size:18px}
+    .founder-copy p{font-size:14px}
+
+    /* Founder video — force visibility on mobile */
+    .founder-video{margin-top:48px !important}
+    .founder-video > div:first-child{padding:28px 24px !important}
+    .founder-video > div:first-child > div > div:nth-child(2){font-size:24px !important}
+    .founder-video > div:nth-child(2){aspect-ratio:16/9 !important;min-height:220px;width:100%}
+
+    /* Timeline */
+    .timeline{margin-top:64px;padding-top:32px}
+    .tl-grid{grid-template-columns:1fr}
+    .tl-item{padding:22px 22px 26px;border-right:none !important}
+    .tl-item .yr{font-size:30px}
+
+    /* Credits — UNIFORM grid */
+    .credits-stats{flex-wrap:wrap}
+    .stat{flex:1 1 50%;padding:18px 16px;min-width:140px}
+    .stat:nth-child(2){border-right:none}
+    .stat .n{font-size:42px}
+    .credits-grid{grid-template-columns:repeat(2,1fr) !important;grid-auto-rows:1fr}
+    .cred{padding:20px 16px;min-height:180px;display:flex;flex-direction:column}
+    .cred .artist{font-size:18px}
+    .cred .song{font-size:12px;flex:1}
+    .cred .role{margin-top:auto;padding-top:10px}
+
+    /* Space */
+    .space-features{grid-template-columns:1fr}
+    .feat{border-right:none !important;padding:24px}
+    .space-info{padding:32px 24px}
+    .space-info .ttl{font-size:28px}
+
+    /* Before / After */
+    .ba-headline h3{font-size:clamp(32px,7vw,42px)}
+    .ba-card .img-wrap{aspect-ratio:4/3}
+
+    /* Gear */
+    .gear-grid > div{padding:32px 24px !important}
+
+    /* Services */
+    .svc{padding:28px 22px}
+    .svc .num{font-size:42px}
+    .svc .h{font-size:24px;margin-top:16px}
+
+    /* Role Finder */
+    .rf-body{padding:36px 24px}
+    .rf-title{font-size:clamp(28px,7vw,36px)}
+    .rf-desc{font-size:14px}
+
+    /* Philosophy */
+    .philosophy{padding:96px 0}
+    .philosophy blockquote{font-size:clamp(20px,5vw,28px) !important}
+
+    /* Footer */
+    .boran-foot .container{padding:48px 24px}
+    .foot-cta h2{font-size:clamp(26px,6vw,32px) !important}
+    .foot-bot{flex-direction:column;align-items:flex-start;gap:14px;text-align:left}
+
+    /* Stack Spotify embed on mobile */
+    .spotify-embed > div:first-child{padding:24px !important}
+    .spotify-embed > div:nth-child(2) iframe{height:240px !important}
+  }
+
+  /* ── Phone ── */
+  @media (max-width: 420px){
+    .hero-left h1{font-size:clamp(32px,9vw,42px) !important}
+    .meaning .thai{font-size:22px}
+    .boran-card .word{font-size:48px}
+    .credits-grid{grid-template-columns:1fr !important}
+    .cred{min-height:auto}
+    .credits-stats{flex-direction:column}
+    .stat{border-right:none !important;border-bottom:1px solid rgba(92,61,30,.16)}
+    .stat:last-child{border-bottom:none}
+  }
 </style>
 </head>
 <body>
@@ -631,6 +861,7 @@
       <div class="meaning">
         <div class="head"><span class="num">01</span><span class="small">การผลิต · Production</span></div>
         <div class="thai">ไทย + <span class="dai-em">ได้</span></div>
+        <div class="thai-sub"><span class="ro">thai</span> 태국 · <span class="ro">dâi</span> 할 수 있다</div>
         <div class="gloss">"태국은 할 수 있다"</div>
         <p>K-pop의 송캠프 제작 시스템을 아직 익숙하지 않은 태국에 도입해 효율적인 협업 프로세스를 만들고, 아름답고 독보적인 태국의 문화를 전 세계로 알린다.</p>
         <div class="meaning-artifact" data-artifact="1">
@@ -640,6 +871,7 @@
       <div class="meaning">
         <div class="head"><span class="num">02</span><span class="small">การถ่ายทำ · Capture</span></div>
         <div class="thai">ถ่าย + <span class="dai-em">ได้</span></div>
+        <div class="thai-sub"><span class="ro">thàai</span> 촬영하다 · <span class="ro">dâi</span> 할 수 있다</div>
         <div class="gloss">"촬영할 수 있다"</div>
         <p>음악 창작의 공간을 넘어, 콘텐츠를 촬영하고 제작할 수 있는 공간. 음악과 영상이 하나의 흐름으로 이어지는 크리에이티브 스튜디오.</p>
         <div class="meaning-artifact" data-artifact="2">
@@ -672,6 +904,7 @@
       <div class="boran-card">
         <div class="word">Bor<span class="o">an</span></div>
         <div class="thai">โบราณ</div>
+        <div style="font-family:var(--font-ui);font-size:11px;letter-spacing:2px;color:var(--orange-light);margin-top:6px"><span style="text-transform:uppercase;letter-spacing:2.5px;font-weight:500">boh-raan</span> · 고대, 전통</div>
         <p style="margin-top:36px;color:rgba(247,244,238,.78);font-size:15px;line-height:1.85">
           태국어로 '고대, 전통'. 그러나 단순히 오래된 것을 뜻하지 않는다. 삭막한 빌딩 숲의 지하 작업실을 벗어나, 낡지만 색다른 영감으로 가득 찬 공간에서 트렌드보다 본질을 관통하는 음악을 창작한다.
         </p>
@@ -681,7 +914,7 @@
         <span class="label">First Space</span>
         <h3 style="margin-top:14px">장비의 스펙이 아닌,<br>공간의 <span class="it">온도와 빛과 바람</span>이<br>창작의 출발점이 되는 스튜디오.</h3>
         <p>한국처럼 빌딩 지하에서 작업하지 않는다. 자연광과 바람이 드는 지상 3층. 화이트 벽, 월넛 가구, Deep Blue 타일 바닥, Burnt Orange 조명과 소품 — 열악한 공간을 감성 있는 공간으로 탈바꿈시키는 것 자체가 브랜드의 첫 번째 이야기다.</p>
-        <p>1층의 Brain Bounce 바와 Prajit Gallery — 태국 왕실로부터 상을 수여받은 화가의 갤러리 — 그 위 3층. 관광지의 럭셔리 스튜디오가 아닌, 파타야에 살고 있는 사람만 아는 파타야.</p>
+        <p>1층에는 태국의 로컬 주류뿐만 아니라 꽤 멋진 벨기에 음식을 맛볼 수 있는 'Brain Bounce' 바, 그리고 태국 왕실로부터 상을 수여받은 화가의 'Prajit Gallery'가 운영 중이다 — 그 위 3층. 관광지의 럭셔리 스튜디오가 아닌, 파타야에 살고 있는 사람만 아는 파타야.</p>
       </div>
     </div>
 
@@ -738,7 +971,7 @@
       </div>
       <div class="right">
         <h2 style="font-family:'Noto Serif KR',serif;font-weight:300;letter-spacing:-0.025em;line-height:1.12">한 줄의 진심에서,<br><span style="font-family:var(--font-display);font-style:italic;font-weight:400;color:var(--orange-light);letter-spacing:-0.01em">한 채의 스튜디오</span>까지.</h2>
-        <p class="desc">Inner Child — MonoTree 소속 K-pop 프로듀서, 탑라이너 겸 작사가. KOMCA에 등록된 110+ 곡, 그리고 12년의 궤적.</p>
+        <p class="desc">Inner Child — MonoTree 소속 K-pop 프로듀서, 탑라이너 겸 작사가. KOMCA에 등록된 110+ 곡, 그리고 9년의 궤적.</p>
       </div>
     </div>
 
@@ -764,11 +997,28 @@
       <div class="founder-copy">
         <span class="label">Founder's Story</span>
         <div class="founder-hero-quote" style="margin-top:14px">어머니와 한 소파 베드에서<br>잠을 청하던 아이는,<br>이제 파타야 3층에<br>자신의 공간을 만든다.</div>
-        <div class="pull" style="margin-top:36px">"소파 베드에서 어머니와 함께 자던 아이가, 아버지의 낡은 부동산 뒷방에서 음악을 시작했다."</div>
-        <p>맞벌이 부모님 아래, 사춘기 내내 개인 침실 하나 없었다. 그 환경을 벗어나고자 중학생·고등학생 시절부터 공모전에 참가해 입상하며 상금을 생활비에 보탰다. 학업을 병행하면서도 아버지의 낡은 부동산 뒷방에서 숙식하며 음악을 만들었다.</p>
-        <p>고등학생 시절, 직접 소형 기획사의 문을 두드려 곡을 팔려는 시도를 했다. 작은 계약까지 이어졌지만 사기와 부당한 대우도 함께 겪었다. 그 과정에서 사람을 걸러내는 눈이 생겼다 — 어린 나이에 얻은, 돈으로 살 수 없는 감각.</p>
-        <p>코로나로 정리해고를 당한 직후, 음악 커뮤니티에 데모와 함께 "MonoTree에 들어가고 싶다"는 글을 한 줄 올렸다. 황당해 보이는 그 진심이 실제로 MonoTree의 귀에 닿았다. SoundCloud 메시지 → 데모 → 전속 작가 계약. 무모한 진심이 통한 순간이었다.</p>
-        <div class="signoff">Inner Child · 2026</div>
+
+        <button class="story-toggle" type="button" aria-expanded="false" aria-controls="founder-story-detail" onclick="
+          const t=this,d=document.getElementById('founder-story-detail');
+          const open=!t.classList.contains('open');
+          t.classList.toggle('open',open);d.classList.toggle('open',open);
+          t.setAttribute('aria-expanded',open);
+          t.querySelector('.txt').textContent=open?'이야기 접기':'이야기 펼쳐보기';
+        ">
+          <span class="txt">이야기 펼쳐보기</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="story-hint">소파 베드의 아이가 메이저 레이블에 닿기까지 — 짧지 않은 이야기입니다.</div>
+
+        <div class="story-reveal" id="founder-story-detail">
+          <div class="story-inner">
+            <div class="pull" style="margin-top:36px">"소파 베드에서 어머니와 함께 자던 아이가, 아버지의 낡은 부동산 뒷방에서 음악을 시작했다."</div>
+            <p>맞벌이 부모님 아래, 사춘기 내내 개인 침실 하나 없었다. 그 환경을 벗어나고자 중학생·고등학생 시절부터 공모전에 참가해 입상하며 상금을 생활비에 보탰다. 학업을 병행하면서도 아버지의 낡은 부동산 뒷방에서 숙식하며 음악을 만들었다.</p>
+            <p>고등학생 시절, 직접 소형 기획사의 문을 두드려 곡을 팔려는 시도를 했다. 작은 계약까지 이어졌지만 사기와 부당한 대우도 함께 겪었다. 그 과정에서 사람을 걸러내는 눈이 생겼다 — 어린 나이에 얻은, 돈으로 살 수 없는 감각.</p>
+            <p>코로나로 정리해고를 당한 직후, 음악 커뮤니티에 데모와 함께 "MonoTree에 들어가고 싶다"는 글을 한 줄 올렸다. 황당해 보이는 그 진심이 실제로 MonoTree의 귀에 닿았다. SoundCloud 메시지 → 데모 → 전속 작가 계약. 무모한 진심이 통한 순간이었다.</p>
+            <div class="signoff">Inner Child · 2026</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -853,7 +1103,7 @@
       </div>
       <div class="right">
         <h2>크레딧 한 줄이 아닌,<br><span class="italic-accent">프로젝트 전체</span>를 설계하는 자리로.</h2>
-        <p class="desc">KOMCA 등록 110+ 곡. SM · JYP · CJ ENM · RBW · 카카오엔터테인먼트 · Woollim · Sonray Music — 한국과 태국, 메이저와 인디를 가로지른 11년의 디스코그래피에서 가장 또렷한 챕터들.</p>
+        <p class="desc">KOMCA 등록 110+ 곡. SM · JYP · CJ ENM · RBW · 카카오엔터테인먼트 · Woollim · Sonray Music — 한국과 태국, 메이저와 인디를 가로지른 9년의 디스코그래피에서 가장 또렷한 챕터들.</p>
       </div>
     </div>
 
@@ -862,11 +1112,11 @@
         <div class="stat"><div class="n">110+</div><div class="l">KOMCA 등록</div></div>
         <div class="stat"><div class="n">20+</div><div class="l">연간 컷 피크</div></div>
         <div class="stat"><div class="n">06</div><div class="l">메이저 레이블</div></div>
-        <div class="stat"><div class="n">11</div><div class="l">Years In K-Pop</div></div>
+        <div class="stat"><div class="n">9</div><div class="l">Years In K-Pop</div></div>
       </div>
       <div>
         <span class="label">Selected Cuts</span>
-        <p style="font-size:14px;line-height:1.85;color:var(--walnut);margin-top:14px;max-width:540px">아래는 11년의 카탈로그에서 추려낸 셀렉티드 워크. 보컬 디렉팅, 탑라이닝, 작사, 편곡까지 — 트랙의 어느 자리든 가장 가까이서 만든 곡들이다.</p>
+        <p style="font-size:14px;line-height:1.85;color:var(--walnut);margin-top:14px;max-width:540px">아래는 9년의 카탈로그에서 추려낸 셀렉티드 워크. 보컬 디렉팅, 탑라이닝, 작사, 편곡까지 — 트랙의 어느 자리든 가장 가까이서 만든 곡들이다.</p>
       </div>
     </div>
 
@@ -1059,7 +1309,7 @@
           <span class="label on-dark">The Space</span>
           <div class="ttl" style="margin-top:14px">석양과 야자수가<br>창문 너머로 내려다보이는 지상 3층.</div>
         </div>
-        <p>여자친구의 어머님이 임대 중인 파타야의 낡은 빌딩. 1층에는 'Brain Bounce' 바와 'Prajit Gallery'가 운영 중이다. 그 빌딩의 3층 — 원래 빨래를 건조하는 용도로 사용하던 방이, 미드센츄리 모던 감성의 <span class="italic-accent" style="color:var(--orange-light);font-style:italic">Writing Room</span>으로 다시 태어났다.</p>
+        <p>여자친구의 어머님이 임대 중인 파타야의 낡은 빌딩. 1층에는 태국의 로컬 주류뿐만 아니라 꽤 멋진 벨기에 음식을 맛볼 수 있는 'Brain Bounce' 바, 그리고 태국 왕실로부터 상을 수여받은 화가의 'Prajit Gallery'가 운영 중이다. 그 빌딩의 3층 — 원래 빨래를 건조하는 용도로 사용하던 방이, 미드센츄리 모던 감성의 <span class="italic-accent" style="color:var(--orange-light);font-style:italic">Writing Room</span>으로 다시 태어났다.</p>
         <div class="keys">
           <div class="k"><div class="key">Floor</div><div class="val">3F · 지상</div></div>
           <div class="k"><div class="key">Rooms</div><div class="val">1 room → multi</div></div>
@@ -1283,11 +1533,33 @@
 </section>
 
 <!-- =================== JOURNEY ANIMATION =================== -->
-<section id="journey" style="background:#080808;margin:0;padding:0;scroll-margin-top:72px" aria-label="Seoul to Pattaya Journey">
-  <div id="boran-journey">
-    <div id="journey-loading" style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(72px,11vw,148px);font-weight:300;color:#222;letter-spacing:-0.02em;line-height:1">0</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#2a2a2a">KM FROM SEOUL · LOADING…</div>
+<section id="journey" aria-label="Seoul to Pattaya Journey">
+  <svg style="position:absolute;width:0;height:0" aria-hidden="true">
+    <defs>
+      <filter id="grain-fx" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="linearRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" seed="7" stitchTiles="stitch" result="n"/>
+        <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+        <feBlend in="SourceGraphic" in2="g" mode="overlay" result="b"/>
+        <feComposite in="b" in2="SourceGraphic" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+  <div class="jr-sticky">
+    <div class="jr-grid"></div>
+    <div class="jr-words" id="jr-words"></div>
+    <div class="jr-counter">
+      <span class="jr-km" id="jr-km">0</span>
+      <span class="jr-label">KM FROM SEOUL</span>
+    </div>
+    <div class="jr-text">
+      <p class="jr-main">
+        서울의 잘 갖춰진 스튜디오엔 없는 것 —
+        <span class="jr-grainy">불편함.</span>
+        어쩌면 그 불편함이 진짜 음악을 만들어 낼지도 모른다.
+      </p>
+      <div class="jr-divider"></div>
+      <p class="jr-second">그리고 그 곳에서 3,000km.<br>그 거리만큼 업계의 소음이 줄어든다.</p>
+      <p class="jr-last">들려야 할 것만 들린다.</p>
     </div>
   </div>
 </section>
@@ -1422,195 +1694,108 @@
   });
 </script>
 
-<script type="module">
-import { createElement, useState, useEffect, useRef } from 'react';
-import { createRoot } from 'react-dom/client';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import htm from 'htm';
+<script>
+/* === Journey Animation — vanilla, no deps === */
+(function(){
+  const section = document.getElementById('journey');
+  if (!section) return;
+  const kmEl       = document.getElementById('jr-km');
+  const counterEl  = section.querySelector('.jr-counter');
+  const gridEl     = section.querySelector('.jr-grid');
+  const wordsEl    = document.getElementById('jr-words');
+  const textEl     = section.querySelector('.jr-text');
+  const lastEl     = section.querySelector('.jr-last');
+  if (!kmEl || !wordsEl) return;
 
-const html = htm.bind(createElement);
-
-/* ── 소음 단어: 차가운 그리드 배경 ── */
-const WORDS = ['CHART','TREND','VIRAL','SUCCESS','LABEL','DEBUT',
-               'ALGORITHM','STREAMING','FORMAT','AGENCY','HYPE',
-               'AWARD','PITCH','SYSTEM','RANK','IDOL'];
-
-const WORD_DATA = WORDS.map((word, i) => ({
-  word,
-  left: 4 + (i % 4) * 23 + Math.sin(i * 2.4) * 4,
-  top:  8 + Math.floor(i / 4) * 24 + Math.cos(i * 1.9) * 3,
-  sx:   Math.sin(i * 0.7 + 1.2) * 240,
-  sy:   Math.cos(i * 1.1 + 0.4) * 200,
-}));
-
-/* ── 개별 소음 단어 컴포넌트 (훅 규칙 준수) ── */
-function Word({ d, prog }) {
-  const x  = useTransform(prog, [0.12, 0.58], [0, d.sx]);
-  const y  = useTransform(prog, [0.12, 0.58], [0, d.sy]);
-  const op = useTransform(prog, [0.04, 0.50], [0.2, 0]);
-  const sc = useTransform(prog, [0.38, 0.58], [1, 0.5]);
-  return html`
-    <${motion.div} style=${{
-      position:'absolute', left:d.left+'%', top:d.top+'%',
-      x, y, opacity:op, scale:sc,
-      fontFamily:'"DM Sans","Helvetica Neue",sans-serif',
-      fontSize:'10px', letterSpacing:'3.5px',
-      textTransform:'uppercase', color:'#484848',
-      pointerEvents:'none', whiteSpace:'nowrap', fontWeight:500,
-    }}>${d.word}</${motion.div}>`;
-}
-
-/* ── 메인 애니메이션 컴포넌트 ── */
-function Journey() {
-  const ref = useRef(null);
-  const { scrollYProgress: prog } = useScroll({
-    target: ref,
-    offset: ['start start', 'end end'],
+  /* Noise words */
+  const WORDS = ['CHART','TREND','VIRAL','SUCCESS','LABEL','DEBUT',
+                 'ALGORITHM','STREAMING','FORMAT','AGENCY','HYPE',
+                 'AWARD','PITCH','SYSTEM','RANK','IDOL'];
+  const WD = WORDS.map((w,i)=>({
+    el:null, word:w,
+    left: 4 + (i % 4) * 23 + Math.sin(i * 2.4) * 4,
+    top:  8 + Math.floor(i / 4) * 24 + Math.cos(i * 1.9) * 3,
+    sx:   Math.sin(i * 0.7 + 1.2) * 240,
+    sy:   Math.cos(i * 1.1 + 0.4) * 200,
+  }));
+  WD.forEach(d => {
+    const s = document.createElement('span');
+    s.textContent = d.word;
+    s.style.left = d.left + '%';
+    s.style.top  = d.top  + '%';
+    wordsEl.appendChild(s);
+    d.el = s;
   });
 
-  /* km 카운터 — useSpring으로 관성 */
-  const kmRaw = useTransform(prog, [0, 0.68], [0, 3000]);
-  const kmSpr = useSpring(kmRaw, { stiffness: 30, damping: 16 });
-  const [km, setKm] = useState(0);
-  useEffect(() => kmSpr.on('change', v =>
-    setKm(Math.max(0, Math.min(3000, Math.round(v))))
-  ), [kmSpr]);
+  /* helpers */
+  const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+  const map   = (v,a,b,c,d)=>{const t=clamp((v-a)/(b-a),0,1);return c+(d-c)*t;};
 
-  /* 시각 상태 transforms */
-  const gridOp    = useTransform(prog, [0.05, 0.52], [0.65, 0]);
-  const cntOp     = useTransform(prog, [0.73, 0.88], [1, 0]);
-  const cntColor  = useTransform(prog, [0.65, 0.74], ['#ffffff', '#C1511F']);
-  const txOp      = useTransform(prog, [0.76, 0.90], [0, 1]);
-  const txBlur    = useTransform(prog, [0.76, 0.93], [28, 0]);
-  const txFilter  = useTransform(txBlur, v => `blur(${v}px)`);
-  const lastLS    = useTransform(prog, [0.91, 1.00], ['0.04em', '0.38em']);
-  const lastOp    = useTransform(prog, [0.91, 0.99], [0, 1]);
+  /* spring-eased km counter */
+  let kmTarget=0, kmShown=0, raf=null;
+  function tick(){
+    const diff = kmTarget - kmShown;
+    kmShown += diff * 0.12;
+    if (Math.abs(diff) > 0.3){
+      kmEl.textContent = Math.round(kmShown).toLocaleString('en-US');
+      raf = requestAnimationFrame(tick);
+    } else {
+      kmShown = kmTarget;
+      kmEl.textContent = Math.round(kmShown).toLocaleString('en-US');
+      raf = null;
+    }
+  }
 
-  return html`
-    <div ref=${ref} style=${{ height:'450vh', position:'relative' }}>
+  let scheduled = false;
+  function update(){
+    scheduled = false;
+    const rect = section.getBoundingClientRect();
+    const vh   = window.innerHeight;
+    const total = Math.max(1, rect.height - vh);
+    const prog  = clamp(-rect.top / total, 0, 1);
 
-      <!-- grain SVG filter (문서에 한 번만) -->
-      <svg style=${{ position:'absolute', width:0, height:0 }} aria-hidden="true">
-        <defs>
-          <filter id="grain-fx" x="0%" y="0%" width="100%" height="100%"
-                  colorInterpolationFilters="linearRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.78"
-                          numOctaves="4" seed="7" stitchTiles="stitch" result="n"/>
-            <feColorMatrix in="n" type="saturate" values="0" result="g"/>
-            <feBlend in="SourceGraphic" in2="g" mode="overlay" result="b"/>
-            <feComposite in="b" in2="SourceGraphic" operator="in"/>
-          </filter>
-        </defs>
-      </svg>
+    /* km counter */
+    kmTarget = Math.round(map(prog, 0, 0.68, 0, 3000));
+    if (!raf) raf = requestAnimationFrame(tick);
 
-      <div style=${{
-        position:'sticky', top:0, height:'100vh',
-        background:'#080808', overflow:'hidden',
-        display:'flex', alignItems:'center', justifyContent:'center',
-      }}>
+    /* counter color & fade */
+    counterEl.style.setProperty('--c-color', prog < 0.65 ? '#fff' : '#C1511F');
+    counterEl.style.setProperty('--c-op', map(prog, 0.73, 0.88, 1, 0));
 
-        <!-- 그리드 배경 -->
-        <${motion.div} style=${{
-          position:'absolute', inset:0,
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),' +
-            'linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px)',
-          backgroundSize:'56px 56px',
-          opacity:gridOp,
-        }}/>
+    /* grid fade */
+    gridEl.style.setProperty('--g-op', map(prog, 0.05, 0.52, 0.6, 0));
 
-        <!-- 소음 단어들 -->
-        ${WORD_DATA.map((d, i) => html`<${Word} key=${i} d=${d} prog=${prog}/>`)}
+    /* noise words scatter */
+    const t = clamp(map(prog, 0.12, 0.58, 0, 1), 0, 1);
+    const op = map(prog, 0.04, 0.5, 0.22, 0);
+    const sc = map(prog, 0.38, 0.58, 1, 0.5);
+    for (let i=0;i<WD.length;i++){
+      const d = WD[i];
+      d.el.style.transform = 'translate('+(d.sx*t)+'px,'+(d.sy*t)+'px) scale('+sc+')';
+      d.el.style.opacity = op;
+    }
 
-        <!-- km 카운터 -->
-        <${motion.div} style=${{
-          position:'absolute', textAlign:'center',
-          opacity:cntOp, zIndex:2, userSelect:'none',
-        }}>
-          <${motion.span} style=${{
-            fontFamily:'"Cormorant Garamond","Noto Serif KR",serif',
-            fontSize:'clamp(68px,11vw,148px)',
-            fontWeight:300, lineHeight:1,
-            letterSpacing:'-0.02em', color:cntColor,
-            display:'block',
-          }}>${km >= 3000 ? '3,000' : km.toLocaleString('en-US')}</${motion.span}>
-          <div style=${{
-            marginTop:'16px',
-            fontFamily:'"DM Sans",sans-serif',
-            fontSize:'10px', letterSpacing:'4px',
-            textTransform:'uppercase', color:'#383838',
-          }}>KM FROM SEOUL</div>
-        </${motion.div}>
+    /* text reveal */
+    textEl.style.setProperty('--t-op', map(prog, 0.76, 0.90, 0, 1));
+    textEl.style.setProperty('--t-blur', map(prog, 0.76, 0.93, 28, 0) + 'px');
 
-        <!-- 핵심 문구 — 블러 해제되며 등장 -->
-        <${motion.div} style=${{
-          position:'absolute', inset:0,
-          display:'flex', alignItems:'center',
-          justifyContent:'center', flexDirection:'column',
-          padding:'0 clamp(32px,9vw,180px)',
-          opacity:txOp, filter:txFilter,
-          zIndex:3, textAlign:'center',
-        }}>
+    /* last line — letter spacing expand */
+    lastEl.style.setProperty('--l-ls', map(prog, 0.91, 1.0, 0.04, 0.38) + 'em');
+    lastEl.style.setProperty('--l-op', map(prog, 0.91, 0.99, 0, 1));
+  }
 
-          <!-- 첫 번째 문장 + '불편함' grain -->
-          <p style=${{
-            fontFamily:'"Cormorant Garamond","Noto Serif KR",serif',
-            fontSize:'clamp(17px,1.9vw,27px)',
-            fontWeight:300, fontStyle:'italic',
-            color:'rgba(255,255,255,.78)',
-            lineHeight:1.95, letterSpacing:'0.01em', margin:0,
-          }}>
-            서울의 잘 갖춰진 스튜디오엔 없는 것 —
-            <span style=${{
-              color:'#fff', fontWeight:400, fontStyle:'normal',
-              filter:'url(#grain-fx) contrast(1.18)',
-              display:'inline',
-            }}>불편함.</span>
-             어쩌면 그 불편함이 진짜 음악을 만들어 낼지도 모른다.
-          </p>
+  function onScroll(){
+    if (!scheduled){
+      scheduled = true;
+      requestAnimationFrame(update);
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+/* === end Journey === */
 
-          <!-- 구분선 -->
-          <div style=${{
-            width:'1px', height:'48px',
-            background:'rgba(193,81,31,.4)',
-            margin:'36px auto',
-          }}/>
-
-          <!-- 두 번째 문장 -->
-          <p style=${{
-            fontFamily:'"Cormorant Garamond","Noto Serif KR",serif',
-            fontSize:'clamp(14px,1.55vw,21px)',
-            fontWeight:300, fontStyle:'italic',
-            color:'rgba(255,255,255,.48)',
-            lineHeight:2.1, letterSpacing:'0.01em', margin:0,
-          }}>
-            그리고 그 곳에서 3,000km.
-            <br/>
-            그 거리만큼 업계의 소음이 줄어든다.
-          </p>
-
-          <!-- 마지막 문장 — 자간 점진적으로 확장 -->
-          <${motion.p} style=${{
-            fontFamily:'"Cormorant Garamond","Noto Serif KR",serif',
-            fontSize:'clamp(15px,1.75vw,24px)',
-            fontWeight:300,
-            color:'rgba(255,255,255,.92)',
-            lineHeight:2.8, letterSpacing:lastLS,
-            opacity:lastOp, marginTop:'28px',
-          }}>들려야 할 것만 들린다.</${motion.p}>
-
-        </${motion.div}>
-      </div>
-    </div>`;
-}
-
-/* ── 마운트 ── */
-const el = document.getElementById('boran-journey');
-if (el) {
-  const loading = document.getElementById('journey-loading');
-  if (loading) loading.remove();
-  createRoot(el).render(html`<${Journey}/>`);
-}
 </script>
 
 </body>
