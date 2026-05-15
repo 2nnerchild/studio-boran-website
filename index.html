@@ -404,6 +404,26 @@
   .feat .h{font-family:var(--font-display);font-weight:400;font-size:26px;color:var(--cream);margin-top:18px;line-height:1.15}
   .feat .b{margin-top:16px;font-size:13px;line-height:1.75;color:rgba(247,244,238,.65)}
 
+  /* Shorts (Apple aesthetic) */
+  .shorts-block{position:relative;margin-top:96px;padding:120px 0 40px;text-align:center;overflow:hidden}
+  .shorts-block::before{content:'';position:absolute;top:18%;left:50%;transform:translateX(-50%);width:720px;height:720px;background:radial-gradient(circle,rgba(193,81,31,.10) 0%,rgba(193,81,31,0) 65%);filter:blur(40px);pointer-events:none;z-index:0}
+  .shorts-head{position:relative;z-index:1;max-width:780px;margin:0 auto 64px}
+  .shorts-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--orange);font-weight:500}
+  .shorts-title{font-family:var(--font-display);font-weight:300;font-size:clamp(38px,4.6vw,62px);line-height:1.05;letter-spacing:-0.02em;margin-top:22px;color:var(--ink);word-break:keep-all;text-wrap:balance}
+  .shorts-title .em{font-style:italic;color:var(--orange)}
+  .shorts-desc{margin:26px auto 0;font-size:15px;line-height:1.75;color:var(--walnut);max-width:540px}
+  .shorts-stage{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;padding:24px 0}
+  .shorts-frame{position:relative;width:340px;aspect-ratio:9/16;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 40px 90px -30px rgba(11,42,90,.45),0 18px 40px -10px rgba(11,42,90,.22),inset 0 0 0 1px rgba(255,255,255,.04);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .shorts-frame:hover{transform:translateY(-6px) scale(1.01)}
+  .shorts-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .shorts-meta{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:48px;padding:10px 22px;border:1px solid rgba(92,61,30,.18);border-radius:999px;background:rgba(247,244,238,.6);backdrop-filter:blur(10px);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--walnut)}
+  .shorts-meta .sep{color:var(--orange-light);opacity:.7}
+  @media (max-width:768px){
+    .shorts-block{padding:80px 0 20px;margin-top:64px}
+    .shorts-frame{width:280px}
+    .shorts-meta{font-size:10px;letter-spacing:1.5px;gap:6px}
+  }
+
   /* Gear */
   .gear-section{padding:96px 0;background:var(--blue-deep);color:var(--cream)}
   .gear-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
@@ -1321,6 +1341,35 @@
         <div class="role" style="color:var(--orange-light)">Request portfolio →</div>
       </div>
     </div>
+
+    <!-- ===== Shorts · Behind the Session ===== -->
+    <div class="shorts-block">
+      <div class="shorts-head">
+        <span class="shorts-eyebrow" data-i18n="shorts.eyebrow">Behind the Session</span>
+        <h2 class="shorts-title" data-i18n-html="shorts.title">한국 프로듀서가 만난<br>태국 <span class="em">No.1</span> 보이그룹.</h2>
+        <p class="shorts-desc" data-i18n="shorts.desc">BUS 'Kub Here' 디렉팅 현장. 보컬 디렉팅 &amp; 탑라이닝 by Inner Child — 실제 세션의 한 장면을 짧게 담았다.</p>
+      </div>
+      <div class="shorts-stage">
+        <div class="shorts-frame">
+          <iframe
+            src="https://www.youtube.com/embed/EuNvAMKdW3Y?rel=0&modestbranding=1&playsinline=1"
+            title="When a Korean Producer Works With Thailand's No.1 Boy Group BUS"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin">
+          </iframe>
+        </div>
+      </div>
+      <div class="shorts-meta">
+        <span data-i18n="shorts.meta.artist">BUS — Kub Here</span>
+        <span class="sep">·</span>
+        <span data-i18n="shorts.meta.role">Vocal Directing · Topline</span>
+        <span class="sep">·</span>
+        <span data-i18n="shorts.meta.label">Sonray Music · 2024</span>
+      </div>
+    </div>
+
   </div>
 </section>
 

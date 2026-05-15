@@ -84,6 +84,13 @@ const TRANSLATIONS = {
     'spotify.title': 'Selected works,<br/>on Spotify.',
     'spotify.p': 'Inner Child가 직접 큐레이트한 셀렉티드 카탈로그. KOMCA 등록 110+ 곡 중 가장 자신있는 작업물을 추렸다.',
     'credits.komca.search': 'KOMCA 저작자명 <span style="color:var(--orange-light);letter-spacing:1px">\'10016430\'</span> 코드로 검색 가능',
+    /* SHORTS */
+    'shorts.eyebrow': '세션 비하인드',
+    'shorts.title':   '한국 프로듀서가 만난<br>태국 <span class="em">No.1</span> 보이그룹.',
+    'shorts.desc':    'BUS \'Kub Here\' 디렉팅 현장. 보컬 디렉팅 & 탑라이닝 by Inner Child — 실제 세션의 한 장면을 짧게 담았다.',
+    'shorts.meta.artist': 'BUS — Kub Here',
+    'shorts.meta.role':   'Vocal Directing · Topline',
+    'shorts.meta.label':  'Sonray Music · 2024',
     /* SPACE */
     'space.h2': '"인생 가장 러프한 환경이<br>커리어 <span class="italic-accent" style="color:var(--orange-light)">최고의 결실</span>을 가져다줄지는,<br>꿈에도 몰랐다."',
     'space.desc': '벽에 핀 곰팡이, 온수도 나오지 않는 욕실, 잔디 깎는 소리가 창 너머로 들려오던 그 방. 거기서 만든 데모가 메이저 엔터의 앨범에 단독 작곡·편곡으로 수록됐다. 그것이 Studio Boran을 만들기로 한 결정적 계기였다.',
@@ -228,6 +235,13 @@ const TRANSLATIONS = {
     'spotify.title': 'Selected works,<br/>on Spotify.',
     'spotify.p': 'A selected catalog curated by Inner Child himself. The most confident works chosen from 110+ KOMCA-registered songs.',
     'credits.komca.search': 'Search KOMCA by composer name <span style="color:var(--orange-light);letter-spacing:1px">\'10016430\'</span>',
+    /* SHORTS */
+    'shorts.eyebrow': 'Behind the Session',
+    'shorts.title':   'When a Korean producer<br>meets Thailand\'s <span class="em">No.1</span> boy group.',
+    'shorts.desc':    'BUS \'Kub Here\' — vocal directing & topline by Inner Child. A short glimpse into the actual session.',
+    'shorts.meta.artist': 'BUS — Kub Here',
+    'shorts.meta.role':   'Vocal Directing · Topline',
+    'shorts.meta.label':  'Sonray Music · 2024',
     /* SPACE */
     'space.h2': '"I never dreamed that the roughest<br>environment of my life would bring<br><span class="italic-accent" style="color:var(--orange-light)">the greatest fruit</span> of my career."',
     'space.desc': 'Mold on the wall, a bathroom with no hot water, the sound of a lawnmower drifting in through the window. The demo made there was included in a major entertainment album as sole composer and arranger. That was the decisive moment that led to creating Studio Boran.',
@@ -372,6 +386,13 @@ const TRANSLATIONS = {
     'spotify.title': 'ผลงานคัดสรร<br/>บน Spotify',
     'spotify.p': 'แคตตาล็อกคัดสรรที่ Inner Child คิวเรทด้วยตนเอง คัดเลือกผลงานที่มั่นใจที่สุดจากเพลง KOMCA กว่า 110+ เพลง',
     'credits.komca.search': 'ค้นหาใน KOMCA ด้วยรหัสนักแต่งเพลง <span style="color:var(--orange-light);letter-spacing:1px">\'10016430\'</span>',
+    /* SHORTS */
+    'shorts.eyebrow': 'เบื้องหลังเซสชัน',
+    'shorts.title':   'เมื่อโปรดิวเซอร์เกาหลี<br>พบบอยกรุ๊ปอันดับ <span class="em">1</span> ของไทย',
+    'shorts.desc':    'BUS \'Kub Here\' — กำกับเสียงและ Topline โดย Inner Child ภาพหนึ่งจากเซสชันจริงในรูปแบบสั้น',
+    'shorts.meta.artist': 'BUS — Kub Here',
+    'shorts.meta.role':   'กำกับเสียง · Topline',
+    'shorts.meta.label':  'Sonray Music · 2024',
     /* SPACE */
     'space.h2': '"ฉันไม่เคยฝันว่าสภาพแวดล้อม<br>ที่ยากที่สุดในชีวิตจะนำมาซึ่ง<br><span class="italic-accent" style="color:var(--orange-light)">ผลลัพธ์ที่ดีที่สุด</span>ในอาชีพ"',
     'space.desc': 'เชื้อราบนผนัง ห้องน้ำที่ไม่มีน้ำร้อน เสียงเครื่องตัดหญ้าดังผ่านหน้าต่าง เดโมที่ทำในที่นั้นถูกนำไปอยู่ในอัลบั้มของค่ายเพลงใหญ่ในฐานะนักแต่งและเรียบเรียงแต่เพียงผู้เดียว นั่นคือช่วงเวลาชี้ขาดที่นำสู่การสร้าง Studio Boran',
