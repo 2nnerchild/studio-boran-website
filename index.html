@@ -1890,6 +1890,68 @@
 
 </script>
 
+<!-- =================== CONTENT PROTECTION =================== -->
+<style>
+  /* Disable text selection on body (allow on form inputs for usability) */
+  body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+  input,textarea,select,[contenteditable="true"]{-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;}
+  /* Disable image dragging/saving */
+  img{-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;-o-user-drag:none;user-drag:none;-webkit-touch-callout:none;}
+  /* Disable print */
+  @media print{html,body{display:none !important;}}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  /* 1) Block right-click context menu */
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; }, false);
+
+  /* 2) Block image drag */
+  document.addEventListener('dragstart', function(e){
+    if(e.target && e.target.tagName === 'IMG'){ e.preventDefault(); return false; }
+  }, false);
+
+  /* 3) Block dev tool & save shortcuts */
+  document.addEventListener('keydown', function(e){
+    var k = e.keyCode || e.which;
+    // F12
+    if(k === 123){ e.preventDefault(); return false; }
+    // Ctrl+Shift+I / J / C  (Inspector / Console / Picker)
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && (k === 73 || k === 74 || k === 67)){ e.preventDefault(); return false; }
+    // Ctrl+U (view source)
+    if((e.ctrlKey || e.metaKey) && k === 85){ e.preventDefault(); return false; }
+    // Ctrl+S (save page)
+    if((e.ctrlKey || e.metaKey) && k === 83){ e.preventDefault(); return false; }
+    // Ctrl+P (print)
+    if((e.ctrlKey || e.metaKey) && k === 80){ e.preventDefault(); return false; }
+  }, false);
+
+  /* 4) Lock images: draggable=false + per-element context block */
+  function lockImages(){
+    var imgs = document.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      imgs[i].setAttribute('draggable','false');
+      imgs[i].oncontextmenu = function(){ return false; };
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', lockImages);
+  } else { lockImages(); }
+  /* Re-lock if dynamically inserted images appear */
+  var mo = new MutationObserver(lockImages);
+  mo.observe(document.documentElement, {childList:true, subtree:true});
+
+  /* 5) Console warning */
+  try{
+    var t = 'color:#C1511F;font-family:Cormorant Garamond,serif;font-size:28px;font-weight:600;';
+    var s = 'color:#888;font-size:12px;line-height:1.6;';
+    console.log('%cStudio Boran — Stop.', t);
+    console.log('%cUnauthorized copying, scraping, or reproduction of this site\'s design, copy, or assets is prohibited.\n무단 복제·스크래핑·재배포 금지.\n© 2026 Studio Boran by THAIDAI. All rights reserved.', s);
+  }catch(_){}
+})();
+</script>
+
 </body>
 </html>
 
