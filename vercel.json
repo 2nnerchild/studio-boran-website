@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/xeha", "destination": "/xeha/", "permanent": true }
+  ]
+}

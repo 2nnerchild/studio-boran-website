@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>XEHA — 8월 32일 (Midsommar) · M2X1</title>
+  <meta name="description" content="미지(M2X1) — 시선으로 존재하는 평행세계. 존재하지 않는 날짜에 갇힌 소년, Xeha. 데뷔 싱글 '8월 32일 (Midsommar)' 발매 중." />
+  <meta property="og:title" content="XEHA — 8월 32일 (Midsommar)" />
+  <meta property="og:description" content="존재하지 않는 날짜에 갇힌 소년. 그를 꺼내는 것은, 당신의 시선." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/cover.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --cream:#F7F4EE; --cream-surf:#EFEAE0; --cream-muted:rgba(247,244,238,.65);
+      --ink:#1C1C1C; --walnut:#5C3D1E;
+      --blue-deep:#0D1F35; --blue-brand:#1B3F6B; --blue-ambient:#13294A;
+      --orange:#C1511F; --orange-light:#E8936A;
+      --sky:#6FB7FF; --sky-bright:#BFE3FF;
+      --glitch-c:#39F0E8; --glitch-m:#FF4FD8;
+      --font-display:'Cormorant Garamond','Noto Serif KR',serif;
+      --font-sans:'DM Sans','Noto Sans KR',system-ui,sans-serif;
+      --font-mono:'JetBrains Mono',monospace;
+      --maxw:1180px;
+      --shadow-sig:0 24px 60px -20px rgba(13,31,53,.55);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--blue-deep); color:var(--cream);
+      font-family:var(--font-sans); font-weight:400; line-height:1.7;
+      -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    /* subtle scanline (Midsommar glitch nod) */
+    body::after{
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.35;
+      background:repeating-linear-gradient(to bottom, rgba(255,255,255,.02) 0 1px, transparent 1px 3px);
+      mix-blend-mode:overlay;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px,4vw,48px)}
+    section{position:relative;padding:clamp(84px,10vw,140px) 0}
+    .mono{font-family:var(--font-mono)}
+    .italic-accent{font-family:var(--font-display);font-style:italic;font-weight:300;color:var(--orange-light)}
+
+    /* Section head (Studio Boran-style) */
+    .sec-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr);gap:40px;margin-bottom:52px;align-items:end}
+    .sec-head .left{display:flex;flex-direction:column;gap:14px}
+    .sec-head .label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange-light);font-weight:500}
+    .sec-head .num{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:64px;color:var(--orange-light);line-height:1;letter-spacing:-.02em}
+    .sec-head .right h2{font-family:var(--font-display);font-weight:300;font-size:clamp(32px,4vw,56px);line-height:1.1;letter-spacing:-.015em;color:var(--cream);word-break:keep-all;text-wrap:balance}
+    .sec-head .right .desc{margin-top:18px;font-size:15px;line-height:1.8;color:var(--cream-muted);max-width:62ch}
+
+    /* NAV */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:40;
+      background:rgba(13,31,53,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(247,244,238,.08);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px clamp(20px,4vw,48px);max-width:var(--maxw);margin:0 auto}
+    .brand{font-family:var(--font-mono);font-weight:500;letter-spacing:.32em;font-size:14px;color:var(--cream);display:flex;align-items:center;gap:10px}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .lang-sw{display:flex;gap:2px;background:rgba(247,244,238,.07);border-radius:999px;padding:3px}
+    .lang-btn{font-family:var(--font-mono);font-size:10px;color:var(--cream-muted);background:none;border:none;cursor:pointer;padding:6px 12px;border-radius:999px;letter-spacing:1px;transition:.2s;font-weight:500}
+    .lang-btn.active{background:var(--orange);color:var(--cream)}
+    .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:13px;font-weight:500;letter-spacing:.03em;padding:11px 22px;border-radius:999px;border:1px solid var(--orange);color:var(--orange-light);background:transparent;cursor:pointer;transition:.25s;white-space:nowrap}
+    .btn:hover{background:var(--orange);color:var(--cream)}
+    .btn.sig{background:var(--orange);color:var(--cream);border-color:var(--orange)}
+    .btn.sig:hover{background:var(--orange-light);border-color:var(--orange-light)}
+    .btn.outline-cream{border-color:rgba(247,244,238,.3);color:var(--cream)}
+    .btn.outline-cream:hover{border-color:var(--cream);background:var(--cream);color:var(--blue-deep)}
+    .btn.outline-ink{border-color:rgba(28,28,28,.25);color:var(--ink)}
+    .btn.outline-ink:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+
+    /* HERO */
+    .hero{
+      min-height:100svh;display:flex;align-items:center;justify-content:center;
+      padding:120px 20px 80px;text-align:center;position:relative;overflow:hidden;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 28%, rgba(111,183,255,.16) 0%, transparent 70%),
+        radial-gradient(circle at 20% 85%, rgba(193,81,31,.09) 0%, transparent 55%),
+        var(--blue-deep);
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:
+        repeating-linear-gradient(0deg, transparent 0 72px, rgba(247,244,238,.03) 72px 73px),
+        repeating-linear-gradient(90deg, transparent 0 72px, rgba(247,244,238,.03) 72px 73px);
+      pointer-events:none;z-index:1;
+    }
+    .hero-inner{position:relative;z-index:2;max-width:960px;display:flex;flex-direction:column;align-items:center}
+    .hero-chip{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--sky-bright);border:1px solid rgba(111,183,255,.3);border-radius:999px;padding:8px 18px;margin-bottom:42px;background:rgba(13,31,53,.5);backdrop-filter:blur(6px)}
+    .hero-chip .pulse{width:6px;height:6px;border-radius:50%;background:var(--glitch-c);box-shadow:0 0 10px var(--glitch-c);animation:blink 2.4s infinite}
+    @keyframes blink{0%,70%,100%{opacity:1}80%{opacity:.3}}
+
+    .wordmark{
+      position:relative;display:block;width:clamp(280px,68vw,820px);cursor:default;
+      filter:drop-shadow(0 0 40px rgba(111,183,255,.35));
+    }
+    .wordmark img{width:100%;height:auto;display:block}
+    .wordmark::before,.wordmark::after{
+      content:'';position:absolute;inset:0;opacity:0;
+      -webkit-mask:url(assets/xeha-logo-white.png) center/100% 100% no-repeat;
+      mask:url(assets/xeha-logo-white.png) center/100% 100% no-repeat;
+    }
+    .wordmark.anim::before,.wordmark:hover::before{opacity:.9;background:var(--glitch-m);transform:translate(-6px,2px);animation:gl1 .5s steps(2) 1}
+    .wordmark.anim::after,.wordmark:hover::after{opacity:.9;background:var(--glitch-c);transform:translate(6px,-2px);animation:gl2 .5s steps(2) 1}
+    .brand-logo{height:13px;width:auto;display:block}
+    .name-logo{height:clamp(22px,2.6vw,30px);width:auto;display:block;margin:clamp(17px,2.7vw,33px) 0}
+    @keyframes gl1{0%{clip-path:inset(0 0 72% 0)}50%{clip-path:inset(60% 0 0 0)}100%{clip-path:inset(0 0 72% 0)}}
+    @keyframes gl2{0%{clip-path:inset(72% 0 0 0)}50%{clip-path:inset(0 0 60% 0)}100%{clip-path:inset(72% 0 0 0)}}
+
+    .hero-logline{margin-top:40px;font-family:var(--font-display);font-weight:300;font-style:italic;font-size:clamp(20px,2.6vw,28px);line-height:1.45;color:var(--cream);max-width:680px;margin-left:auto;margin-right:auto;letter-spacing:-.005em;word-break:keep-all;text-wrap:balance}
+    .hero-sub{margin-top:18px;color:var(--cream-muted);font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+    .hero-cta{margin-top:48px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .scrollcue{margin-top:76px;color:var(--cream-muted);font-family:var(--font-mono);font-size:10px;letter-spacing:.35em}
+
+    /* Alternating light sections */
+    .sec-cream{background:var(--cream);color:var(--ink)}
+    .sec-cream .sec-head .label{color:var(--orange)}
+    .sec-cream .sec-head .num{color:var(--orange)}
+    .sec-cream .sec-head .right h2{color:var(--ink)}
+    .sec-cream .sec-head .right .desc{color:var(--walnut)}
+
+    /* WORLD · date card artifact */
+    .world-art{margin-top:16px;position:relative;max-width:860px;margin-left:auto;margin-right:auto;text-align:center}
+    .date-card{display:inline-block;padding:clamp(44px,6vw,80px) clamp(40px,7vw,96px);border:1px solid rgba(111,183,255,.22);border-radius:4px;background:linear-gradient(180deg,rgba(13,31,53,.6) 0%, rgba(13,31,53,.3) 100%);backdrop-filter:blur(10px);position:relative;overflow:hidden}
+    .date-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 0%,rgba(111,183,255,.06) 50%,transparent 100%);pointer-events:none}
+    .date-top{font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;color:var(--sky);text-transform:uppercase}
+    .date-main{font-family:var(--font-display);font-weight:300;font-style:italic;font-size:clamp(52px,9vw,104px);line-height:1;color:var(--cream);margin-top:16px;letter-spacing:-.025em}
+    .date-main .err{color:var(--orange-light);display:inline-block;position:relative}
+    .date-main sup{font-size:.46em;color:var(--orange-light);vertical-align:super;font-style:normal;font-family:var(--font-mono);font-weight:500;letter-spacing:0}
+    .date-sub{margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;color:var(--sky-bright)}
+
+    /* NAME grid */
+    .name-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(92,61,30,.18);margin-top:16px}
+    .name-card{padding:44px 32px;border-right:1px solid rgba(92,61,30,.18);background:var(--cream);transition:all .3s;cursor:default}
+    .name-card:last-child{border-right:none}
+    .name-card:hover{background:var(--cream-surf)}
+    .name-card .k{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:clamp(56px,8vw,96px);line-height:1;color:var(--orange);letter-spacing:-.025em}
+    .name-card .t{margin-top:22px;font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:500}
+    .name-card .d{margin-top:12px;font-size:13px;line-height:1.7;color:var(--walnut)}
+    .name-card.final{background:var(--blue-deep);color:var(--cream)}
+    .name-card.final .k{color:var(--sky-bright);font-weight:400;letter-spacing:-.02em}
+    .name-card.final .t{color:var(--cream);opacity:.9}
+    .name-card.final .d{color:rgba(247,244,238,.7)}
+
+    /* MUSIC */
+    .music-section{background:var(--blue-deep)}
+    .music-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:60px;align-items:center;margin-top:16px}
+    .cover{aspect-ratio:1;border-radius:4px;overflow:hidden;position:relative;background:linear-gradient(135deg,var(--blue-brand) 0%,var(--blue-ambient) 100%);box-shadow:var(--shadow-sig);display:flex;align-items:center;justify-content:center}
+    .cover img{width:100%;height:100%;object-fit:cover}
+    .cover-ph{text-align:center;color:var(--cream-muted);font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;padding:24px;text-transform:uppercase}
+    .cover-ph .pt{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:clamp(28px,3.4vw,36px);color:var(--cream);margin-bottom:14px;letter-spacing:-.015em;line-height:1.1;text-transform:none}
+    .cover-ph .pt em{color:var(--sky-bright);opacity:.85}
+    .music-info .track{font-family:var(--font-mono);font-size:11px;letter-spacing:.25em;color:var(--sky);text-transform:uppercase}
+    .music-info .title{font-family:var(--font-display);font-weight:300;font-style:italic;font-size:clamp(34px,4.2vw,52px);line-height:1.1;color:var(--cream);margin-top:18px;letter-spacing:-.015em}
+    .music-info .title sup{font-size:.5em;vertical-align:super;color:var(--orange-light);font-style:normal;font-family:var(--font-mono);font-weight:500}
+    .music-info .title em{opacity:.72}
+    .music-info .copy{margin-top:24px;font-size:15px;line-height:1.8;color:var(--cream-muted);max-width:48ch}
+    .stream-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+    .spotify-embed{margin-top:28px;border-radius:12px;overflow:hidden;height:152px}
+    .spotify-embed iframe{width:100%;height:152px;border:0;display:block}
+    .td-logo{height:34px;width:auto;display:inline-block}
+    footer .td-logo{height:11px;vertical-align:middle}
+
+    /* VISUAL */
+
+    .video-wrap{margin-top:56px}
+    .video-head{text-align:center;margin-bottom:28px}
+    .video-head .lbl{font-family:var(--font-mono);font-size:11px;letter-spacing:.25em;color:var(--orange);text-transform:uppercase}
+    .video-head .ttl{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:clamp(28px,3.4vw,42px);line-height:1.15;color:var(--ink);margin-top:12px;letter-spacing:-.015em}
+    .video-frame{aspect-ratio:16/9;border-radius:4px;overflow:hidden;box-shadow:var(--shadow-sig);background:#000;border:1px solid rgba(92,61,30,.18)}
+    .music-section .video-head .ttl{color:var(--cream)}
+    .music-section .video-head .lbl{color:var(--orange-light)}
+    .music-section .video-frame{border-color:rgba(247,244,238,.14)}
+    .video-frame iframe{width:100%;height:100%;border:0;display:block}
+
+    /* CREDITS */
+    .credits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid rgba(247,244,238,.14);border-left:1px solid rgba(247,244,238,.14);margin-top:16px}
+    .credit-cell{padding:30px 26px;border-right:1px solid rgba(247,244,238,.14);border-bottom:1px solid rgba(247,244,238,.14);background:rgba(247,244,238,.03);transition:background .25s}
+    .credit-cell:hover{background:rgba(247,244,238,.07)}
+    .credit-cell .role{font-family:var(--font-mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--sky);font-weight:500}
+    .credit-cell .who{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:30px;line-height:1.2;color:var(--cream);margin-top:14px;letter-spacing:-.01em}
+    .credit-cell .who em{font-size:.6em;opacity:.55;font-style:normal;font-family:var(--font-mono);letter-spacing:.08em;margin-left:4px;vertical-align:middle;color:var(--cream-muted)}
+    .credit-cell.feature{background:rgba(247,244,238,.06);grid-column:span 2;text-align:center;padding:44px 24px}
+    .credit-cell.feature .role{color:var(--orange-light)}
+    .credit-cell.feature .who{margin-top:20px}
+
+    /* CTA */
+    .cta{background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, rgba(111,183,255,.14) 0%, transparent 60%),
+      var(--blue-deep);text-align:center}
+    .cta h2{font-family:var(--font-display);font-weight:300;font-style:italic;font-size:clamp(34px,5.2vw,66px);line-height:1.12;color:var(--cream);max-width:18ch;margin:0 auto;letter-spacing:-.02em;word-break:keep-all;text-wrap:balance}
+    .cta .cta-sub{margin-top:26px;font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;color:var(--sky-bright);text-transform:uppercase}
+    .cta .follow{margin-top:46px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    /* FOOTER */
+    footer{border-top:1px solid rgba(247,244,238,.08);padding:38px 24px;color:var(--cream-muted);font-family:var(--font-mono);font-size:11px;text-align:center;letter-spacing:.1em;background:var(--blue-deep)}
+    footer .sep{color:var(--orange-light);margin:0 10px}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease, transform .8s ease}
+    .reveal.in{opacity:1;transform:none}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .sec-head{grid-template-columns:1fr;gap:16px;align-items:start}
+      .sec-head .num{font-size:48px}
+      .name-grid{grid-template-columns:repeat(2,1fr)}
+      .name-card{border-right:1px solid rgba(92,61,30,.18);border-bottom:1px solid rgba(92,61,30,.18)}
+      .name-card:nth-child(2n){border-right:none}
+      .name-card:nth-last-child(-n+2){border-bottom:none}
+      .music-row{grid-template-columns:1fr;gap:40px}
+      .credits-grid{grid-template-columns:1fr}
+      .credit-cell{border-right:none}
+      .credit-cell.feature{grid-column:span 1}
+    }
+    @media (max-width:560px){
+      .nav-right .btn{display:none}
+      .brand{font-size:12px;letter-spacing:.25em}
+      .hero{padding:100px 16px 60px}
+      .credit-cell .who{font-size:24px}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none !important;transition:none !important}
+      .reveal{opacity:1;transform:none}
+      html{scroll-behavior:auto}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="topnav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><img class="brand-logo" src="assets/xeha-logo-white.png" alt="XEHA" /></a>
+    <div class="nav-right">
+      <div class="lang-sw" aria-label="Language">
+        <button class="lang-btn active" data-lang="ko">KO</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="#music" class="btn sig" data-ko="LISTEN" data-en="LISTEN">LISTEN</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <span class="hero-chip">
+      <span class="pulse"></span>
+      <span data-ko="‘8월 32일 (Midsommar)’ · 발매 중" data-en="‘August 32nd (Midsommar)’ · OUT NOW">‘8월 32일 (Midsommar)’ · 발매 중</span>
+    </span>
+    <h1 class="wordmark" id="wordmark"><img src="assets/xeha-logo-white.png" alt="XEHA" /></h1>
+    <p class="hero-logline"
+       data-ko="존재하지 않는 날짜에 갇힌 소년.<br>그를 꺼내는 것은, 당신의 시선."
+       data-en="A boy trapped on a date that does not exist.<br>What frees him is your gaze.">
+      존재하지 않는 날짜에 갇힌 소년.<br>그를 꺼내는 것은, 당신의 시선.
+    </p>
+    <p class="hero-sub">M2X1 · 미지 · a parallel world of attention</p>
+    <div class="hero-cta">
+      <a href="#music" class="btn sig" data-ko="지금 듣기" data-en="Listen now">지금 듣기</a>
+      <a href="#world" class="btn outline-cream" data-ko="세계관으로" data-en="Enter the world">세계관으로</a>
+    </div>
+    <div class="scrollcue">SCROLL ↓</div>
+  </div>
+</header>
+
+<!-- WORLD -->
+<section id="world">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="left">
+        <span class="label">01 — The World</span>
+        <div class="num">i.</div>
+      </div>
+      <div class="right">
+        <h2 data-ko="시선으로 존재하는 세계,<br><span class='italic-accent'>미지(M2X1).</span>"
+            data-en="A world that exists<br>only through <span class='italic-accent'>attention.</span>">
+          시선으로 존재하는 세계,<br><span class="italic-accent">미지(M2X1).</span>
+        </h2>
+        <p class="desc"
+           data-ko="미지(M2X1)는 시선으로 존재하는 평행세계. 그곳에서 태어난 제하는, 스스로 통제할 수 없는 능력에 이끌려 달력에 없는 하루 ‘8월 32일’에 갇힌다. 소원으로 빌었던 영원한 여름방학은, 이방인을 마냥 반겨주지 않았다."
+           data-en="M2X1 — a parallel world that exists only through attention. Born there, Xeha is pulled by a power he cannot control into a day that shouldn't exist — August 32nd — and trapped in an endless summer. The eternal vacation he once wished for did not welcome the stranger.">
+          미지(M2X1)는 시선으로 존재하는 평행세계. 그곳에서 태어난 제하는, 스스로 통제할 수 없는 능력에 이끌려 달력에 없는 하루 ‘8월 32일’에 갇힌다. 소원으로 빌었던 영원한 여름방학은, 이방인을 마냥 반겨주지 않았다.
+        </p>
+      </div>
+    </div>
+
+    <div class="world-art reveal">
+      <div class="date-card">
+        <div class="date-top" data-ko="— 존재하지 않는 하루 —" data-en="— The day that shouldn't exist —">— 존재하지 않는 하루 —</div>
+        <div class="date-main">August <span class="err">32</span><sup>nd</sup></div>
+        <div class="date-sub">8월 32일 · ERR_DATE_UNDEFINED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAME -->
+<section id="name" class="sec-cream">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="left">
+        <span class="label">02 — The Name</span>
+        <div class="num">ii.</div>
+      </div>
+      <div class="right">
+        <h2 data-ko="하나의 이름에<br><span class='italic-accent'>세계 전체</span>를 접어 두다."
+            data-en="A whole world,<br><span class='italic-accent'>folded</span> into one name.">
+          하나의 이름에<br><span class="italic-accent">세계 전체</span>를 접어 두다.
+        </h2>
+      </div>
+    </div>
+
+    <div class="name-grid reveal">
+      <div class="name-card">
+        <div class="k">X</div>
+        <div class="t">The Unknown</div>
+        <div class="d" data-ko="미지수 — 미지라는 세계이자, 정체불명의 존재." data-en="The unknown — both the unknown world, and the unknown one.">미지수 — 미지라는 세계이자, 정체불명의 존재.</div>
+      </div>
+      <div class="name-card">
+        <div class="k">Xe</div>
+        <div class="t">ξénos · The Stranger</div>
+        <div class="d" data-ko="그리스어 ‘낯선 자 · 손님’. 세계의 이방인." data-en="Greek ‘stranger · guest’. The outsider of this world.">그리스어 ‘낯선 자 · 손님’. 세계의 이방인.</div>
+      </div>
+      <div class="name-card">
+        <div class="k">夏</div>
+        <div class="t">Natsu · Summer</div>
+        <div class="d" data-ko="끝나지 않는 여름. 백야 같은 눈부신 하루." data-en="The endless summer. A blinding day that never ends.">끝나지 않는 여름. 백야 같은 눈부신 하루.</div>
+      </div>
+      <div class="name-card final">
+        <img class="name-logo" src="assets/xeha-logo-white.png" alt="XEHA" />
+        <div class="t">제하</div>
+        <div class="d" data-ko="미지에서 온 이방인, 끝나지 않는 여름 속의 소년." data-en="The stranger from the unknown, a boy in an endless summer.">미지에서 온 이방인, 끝나지 않는 여름 속의 소년.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section id="music" class="music-section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="left">
+        <span class="label">03 — Music</span>
+        <div class="num">iii.</div>
+      </div>
+      <div class="right">
+        <h2 data-ko="데뷔 싱글,<br><span class='italic-accent'>지금 발매 중.</span>"
+            data-en="Debut single,<br><span class='italic-accent'>out now.</span>">
+          데뷔 싱글,<br><span class="italic-accent">지금 발매 중.</span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="music-row reveal">
+      <div class="cover">
+        <img src="assets/cover.jpg" alt="XEHA — 8월 32일 (Midsommar) album cover" />
+      </div>
+      <div class="music-info">
+        <div class="track">Debut Single · 2026</div>
+        <div class="title">August 32<sup>nd</sup><br/><em>Midsommar</em></div>
+        <p class="copy"
+           data-ko="지금 발매 중. 당신의 스트리밍이 제하를 존재하게 합니다."
+           data-en="Out now. Every stream keeps Xeha alive.">
+          지금 발매 중. 당신의 스트리밍이 제하를 존재하게 합니다.
+        </p>
+        <div class="stream-links">
+          <a href="https://open.spotify.com/track/413HXwOO60FLhOYUuF3JRm" class="btn sig" target="_blank" rel="noopener">Spotify ↗</a>
+          <a href="https://www.youtube.com/watch?v=sotvmOrF8vs" class="btn" target="_blank" rel="noopener">YouTube ↗</a>
+          <!-- TODO: Apple Music / YouTube Music / Melon URL 확보 시 추가 -->
+        </div>
+        <div class="spotify-embed">
+          <iframe src="https://open.spotify.com/embed/track/413HXwOO60FLhOYUuF3JRm?utm_source=generator&theme=0" title="Spotify — 8월 32일 (Midsommar)" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-wrap reveal">
+      <div class="video-head">
+        <div class="lbl">Watch</div>
+        <div class="ttl" data-ko="‘8월 32일 (Midsommar)’ — 영상" data-en="‘August 32nd (Midsommar)’ — Film">‘8월 32일 (Midsommar)’ — 영상</div>
+      </div>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/sotvmOrF8vs?rel=0&modestbranding=1&playsinline=1"
+          title="XEHA — 8월 32일 (Midsommar)"
+          loading="lazy"
+          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDITS -->
+<section id="credits">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="left">
+        <span class="label">04 — Credits</span>
+        <div class="num">iv.</div>
+      </div>
+      <div class="right">
+        <h2 data-ko="만든 사람들." data-en="Made by.">만든 사람들.</h2>
+      </div>
+    </div>
+
+    <div class="credits-grid reveal">
+      <div class="credit-cell">
+        <div class="role">Artist</div>
+        <div class="who">Xeha <em>제하</em></div>
+      </div>
+      <div class="credit-cell">
+        <div class="role">Creative Direction · Music Production · Composition · Lyrics</div>
+        <div class="who">Inner Child <em>이너차일드</em></div>
+      </div>
+      <div class="credit-cell">
+        <div class="role">Arrangement · Mix &amp; Master</div>
+        <div class="who">Zen</div>
+      </div>
+      <div class="credit-cell">
+        <div class="role">AI Visual</div>
+        <div class="who">Wise Media</div>
+      </div>
+      <div class="credit-cell feature">
+        <div class="role" data-ko="A production by" data-en="A production by">A production by</div>
+        <div class="who"><img class="td-logo" src="assets/thaidai-logo-light.png" alt="THAIDAI" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / FOLLOW -->
+<section id="follow" class="cta">
+  <div class="container reveal">
+    <h2 data-ko="우리의 시선이<br>그를 <span class='italic-accent' style='color:var(--sky-bright)'>붙잡아둔다.</span>"
+        data-en="Our gaze is what<br><span class='italic-accent' style='color:var(--sky-bright)'>keeps him here.</span>">
+      우리의 시선이<br>그를 <span class="italic-accent" style="color:var(--sky-bright)">붙잡아둔다.</span>
+    </h2>
+    <div class="cta-sub">The eternal summer · 8月 32日</div>
+    <div class="follow">
+      <a href="#music" class="btn sig" data-ko="지금 듣기" data-en="Listen now">지금 듣기</a>
+      <a href="https://open.spotify.com/track/413HXwOO60FLhOYUuF3JRm" class="btn outline-cream" target="_blank" rel="noopener">Spotify ↗</a>
+      <a href="https://www.youtube.com/watch?v=sotvmOrF8vs" class="btn outline-cream" target="_blank" rel="noopener">YouTube ↗</a>
+      <!-- TODO: Instagram URL 확보 시 추가 -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 <img class="td-logo" src="assets/thaidai-logo-light.png" alt="THAIDAI" /><span class="sep">·</span>Xeha / M2X1<span class="sep">·</span>a parallel world of attention
+</footer>
+
+<script>
+  /* Reveal on scroll */
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((es)=>es.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    }), {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+  }
+
+  /* Occasional glitch on wordmark */
+  const wm = document.getElementById('wordmark');
+  if(wm && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+    setInterval(()=>{ wm.classList.add('anim'); setTimeout(()=>wm.classList.remove('anim'), 520); }, 4800);
+  }
+
+  /* KO/EN toggle (data-ko / data-en; supports inline HTML) */
+  const saved = localStorage.getItem('xeha-lang') || 'ko';
+  function setLang(lang){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('[data-ko]').forEach(el=>{
+      const v = el.getAttribute('data-' + lang);
+      if(v !== null){
+        if(v.indexOf('<') !== -1) el.innerHTML = v;
+        else el.textContent = v;
+      }
+    });
+    localStorage.setItem('xeha-lang', lang);
+  }
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> setLang(btn.getAttribute('data-lang')));
+  });
+  setLang(saved);
+</script>
+</body>
+</html>
