@@ -111,6 +111,10 @@
     .wordmark.anim::before,.wordmark:hover::before{opacity:.9;background:var(--glitch-m);transform:translate(-6px,2px);animation:gl1 .5s steps(2) 1}
     .wordmark.anim::after,.wordmark:hover::after{opacity:.9;background:var(--glitch-c);transform:translate(6px,-2px);animation:gl2 .5s steps(2) 1}
     .brand-logo{height:13px;width:auto;display:block}
+    .brand .by{font-family:var(--font-sans);font-size:12px;letter-spacing:0;color:var(--orange-light);font-weight:500}
+    .brand-td{height:12px;width:auto;display:block}
+    .brand{transition:opacity .2s}
+    .brand:hover{opacity:.75}
     .name-logo{height:clamp(22px,2.6vw,30px);width:auto;display:block;margin:clamp(17px,2.7vw,33px) 0}
     @keyframes gl1{0%{clip-path:inset(0 0 72% 0)}50%{clip-path:inset(60% 0 0 0)}100%{clip-path:inset(0 0 72% 0)}}
     @keyframes gl2{0%{clip-path:inset(72% 0 0 0)}50%{clip-path:inset(0 0 60% 0)}100%{clip-path:inset(72% 0 0 0)}}
@@ -239,7 +243,7 @@
 
 <nav id="topnav">
   <div class="nav-inner">
-    <a href="#top" class="brand"><img class="brand-logo" src="assets/xeha-logo-white.png" alt="XEHA" /></a>
+    <a href="/" class="brand" title="Studio Boran으로 돌아가기" aria-label="XEHA by THAIDAI — Studio Boran으로 돌아가기"><img class="brand-logo" src="assets/xeha-logo-white.png" alt="XEHA" /><span class="by">by</span><img class="brand-td" src="assets/thaidai-logo-light.png" alt="THAIDAI" /></a>
     <div class="nav-right">
       <div class="lang-sw" aria-label="Language">
         <button class="lang-btn active" data-lang="ko">KO</button>
@@ -425,7 +429,7 @@
       </div>
       <div class="credit-cell">
         <div class="role">Arrangement · Mix &amp; Master</div>
-        <div class="who">Zen</div>
+        <div class="who">ZEN <em>(THAIDAI)</em></div>
       </div>
       <div class="credit-cell">
         <div class="role">AI Visual</div>
