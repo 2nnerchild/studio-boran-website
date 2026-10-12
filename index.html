@@ -79,6 +79,12 @@
   .brandmark .wordmark{font-family:var(--font-ui);font-weight:700;font-size:14px;letter-spacing:3px}
   .brandmark .wordmark .dot{color:var(--orange);margin:0 8px}
   nav.top.dark .brandmark .wordmark{color:var(--cream)}
+  .brandmark .wordmark{display:inline-flex;align-items:center}
+  .brandmark{flex-shrink:0}
+  .td-logo{height:13px;width:auto;display:inline-block;vertical-align:middle;flex-shrink:0}
+  .td-on-dark{display:none}
+  nav.top.dark .td-on-light{display:none}
+  nav.top.dark .td-on-dark{display:inline-block}
   .nav-links{display:flex;gap:36px;align-items:center}
   .nav-links a{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--walnut);transition:color .2s}
   nav.top.dark .nav-links a{color:var(--cream-muted)}
@@ -547,7 +553,8 @@
 
   .foot-bot{margin-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;color:rgba(247,244,238,.45);font-size:10px;letter-spacing:2.5px;text-transform:uppercase}
   .foot-bot .left{display:flex;gap:24px;align-items:center}
-  .foot-bot .wm{font-family:var(--font-ui);font-weight:700;letter-spacing:4px}
+  .foot-bot .wm{font-family:var(--font-ui);font-weight:700;letter-spacing:4px;display:inline-flex;align-items:center}
+  .foot-bot .wm .td-logo{height:12px}
   .foot-bot .wm .dot{color:var(--orange);margin:0 8px}
 
   /* Responsive */
@@ -823,7 +830,7 @@
   <div class="inner">
     <a href="#top" class="brandmark">
       <span class="mark"><img src="assets/logo.png" alt="Studio Boran mark" /></span>
-      <span class="wordmark">STUDIO BORAN<span class="dot">by</span>THAIDAI</span>
+      <span class="wordmark">STUDIO BORAN<span class="dot">by</span><img class="td-logo td-on-light" src="assets/thaidai-logo.png" alt="THAIDAI" /><img class="td-logo td-on-dark" src="assets/thaidai-logo-light.png" alt="THAIDAI" /></span>
     </a>
     <div class="nav-links">
       <a href="#brand">BRAND</a>
@@ -1699,7 +1706,7 @@
     </div>
     <div class="foot-bot">
       <div class="left">
-        <span class="wm">STUDIO BORAN<span class="dot">·</span>THAIDAI</span>
+        <span class="wm">STUDIO BORAN<span class="dot">·</span><img class="td-logo" src="assets/thaidai-logo-light.png" alt="THAIDAI" /></span>
         <span>© 2026 · Pattaya · Thailand</span>
       </div>
       <div>K-Pop Production <span style="color:var(--orange);margin:0 8px">·</span> Song Camp <span style="color:var(--orange);margin:0 8px">·</span> Creative Residency</div>
