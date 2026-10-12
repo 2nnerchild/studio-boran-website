@@ -34,7 +34,9 @@
       background:var(--blue-deep); color:var(--cream);
       font-family:var(--font-sans); font-weight:400; line-height:1.7;
       -webkit-font-smoothing:antialiased; overflow-x:hidden;
+      word-break:keep-all; overflow-wrap:break-word;
     }
+    p, .name-card .d{text-wrap:pretty}
     /* subtle scanline (Midsommar glitch nod) */
     body::after{
       content:""; position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.35;
@@ -94,8 +96,6 @@
       pointer-events:none;z-index:1;
     }
     .hero-inner{position:relative;z-index:2;max-width:960px;display:flex;flex-direction:column;align-items:center}
-    .hero-chip{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--sky-bright);border:1px solid rgba(111,183,255,.3);border-radius:999px;padding:8px 18px;margin-bottom:42px;background:rgba(13,31,53,.5);backdrop-filter:blur(6px)}
-    .hero-chip .pulse{width:6px;height:6px;border-radius:50%;background:var(--glitch-c);box-shadow:0 0 10px var(--glitch-c);animation:blink 2.4s infinite}
     @keyframes blink{0%,70%,100%{opacity:1}80%{opacity:.3}}
 
     .wordmark{
@@ -120,7 +120,6 @@
     @keyframes gl2{0%{clip-path:inset(72% 0 0 0)}50%{clip-path:inset(0 0 60% 0)}100%{clip-path:inset(72% 0 0 0)}}
 
     .hero-logline{margin-top:40px;font-family:var(--font-display);font-weight:300;font-style:italic;font-size:clamp(20px,2.6vw,28px);line-height:1.45;color:var(--cream);max-width:680px;margin-left:auto;margin-right:auto;letter-spacing:-.005em;word-break:keep-all;text-wrap:balance}
-    .hero-sub{margin-top:18px;color:var(--cream-muted);font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
     .hero-cta{margin-top:48px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
     .scrollcue{margin-top:76px;color:var(--cream-muted);font-family:var(--font-mono);font-size:10px;letter-spacing:.35em}
 
@@ -222,14 +221,24 @@
       .name-card:nth-last-child(-n+2){border-bottom:none}
       .music-row{grid-template-columns:1fr;gap:40px}
       .credits-grid{grid-template-columns:1fr}
-      .credit-cell{border-right:none}
       .credit-cell.feature{grid-column:span 1}
     }
     @media (max-width:560px){
       .nav-right .btn{display:none}
-      .brand{font-size:12px;letter-spacing:.25em}
+      .nav-inner{padding:10px 16px}
+      .brand{padding:10px 0;gap:8px}
+      .lang-btn{padding:10px 15px;font-size:11px}
       .hero{padding:100px 16px 60px}
+      .hero-logline{margin-top:32px}
+      .hero-cta{margin-top:40px}
+      .scrollcue{margin-top:56px}
+      .name-card{padding:28px 18px}
+      .name-card .t{margin-top:16px;letter-spacing:1.5px}
+      .date-card{padding:40px 24px}
+      .credit-cell{padding:24px 20px}
       .credit-cell .who{font-size:24px}
+      .cta .follow{flex-direction:column;align-items:stretch;max-width:260px;margin-left:auto;margin-right:auto}
+      .cta .follow .btn{justify-content:center}
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -257,17 +266,12 @@
 <!-- HERO -->
 <header class="hero" id="top">
   <div class="hero-inner">
-    <span class="hero-chip">
-      <span class="pulse"></span>
-      <span data-ko="‘8월 32일 (Midsommar)’ · 발매 중" data-en="‘August 32nd (Midsommar)’ · OUT NOW">‘8월 32일 (Midsommar)’ · 발매 중</span>
-    </span>
     <h1 class="wordmark" id="wordmark"><img src="assets/xeha-logo-white.png" alt="XEHA" /></h1>
     <p class="hero-logline"
        data-ko="존재하지 않는 날짜에 갇힌 소년.<br>그를 꺼내는 것은, 당신의 시선."
        data-en="A boy trapped on a date that does not exist.<br>What frees him is your gaze.">
       존재하지 않는 날짜에 갇힌 소년.<br>그를 꺼내는 것은, 당신의 시선.
     </p>
-    <p class="hero-sub">M2X1 · 미지 · a parallel world of attention</p>
     <div class="hero-cta">
       <a href="#music" class="btn sig" data-ko="지금 듣기" data-en="Listen now">지금 듣기</a>
       <a href="#world" class="btn outline-cream" data-ko="세계관으로" data-en="Enter the world">세계관으로</a>
@@ -436,7 +440,7 @@
         <div class="who">Wise Media</div>
       </div>
       <div class="credit-cell feature">
-        <div class="role" data-ko="A production by" data-en="A production by">A production by</div>
+        <div class="role">Music Production by</div>
         <div class="who"><img class="td-logo" src="assets/thaidai-logo-light.png" alt="THAIDAI" /></div>
       </div>
     </div>
@@ -461,7 +465,7 @@
 </section>
 
 <footer>
-  © 2026 <img class="td-logo" src="assets/thaidai-logo-light.png" alt="THAIDAI" /><span class="sep">·</span>Xeha / M2X1<span class="sep">·</span>a parallel world of attention
+  © 2026 <img class="td-logo" src="assets/thaidai-logo-light.png" alt="THAIDAI" />
 </footer>
 
 <script>
